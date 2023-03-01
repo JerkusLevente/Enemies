@@ -1,0 +1,104 @@
+﻿@using Enemies.Core.Models
+@model IEnumerable<Enemies.Core.Models.Enemy>
+
+@{
+   ViewData["Title"] = "Enemies";
+    var filterModel = new Enemy();
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New Enemy</a>
+</p>
+
+<div id="filter-container" class="collapse-expand-container">
+
+    <form id="filter-form" class="collapse-expand-element hidden" asp-action="Index" method="get">
+        <div class="form-filter">
+            <span class="filter-span">
+                <label class="control-label">@Html.DisplayNameFor(_ => @filterModel.Name)</label>
+                <input class="control" asp-for="@filterModel.Name" name="Name" />
+            </span>
+            <span class="filter-span">
+                <label class="control-label">@Html.DisplayNameFor(_ => @filterModel.Health)</label>
+                <input class="control" asp-for="@filterModel.Health" name="Health" />
+            </span>
+            <span class="filter-span">
+                <label class="control-label">@Html.DisplayNameFor(_ => @filterModel.Speed)</label>
+                <input class="control" asp-for="@filterModel.Speed" name="Speed" />
+            </span>
+            <span class="filter-span">
+                <label class="control-label">@Html.DisplayNameFor(_ => @filterModel.Value)</label>
+                <input class="control" asp-for="@filterModel.Value" name="Value" />
+            </span>
+            <span class="filter-span">
+                <label class="control-label">@Html.DisplayNameFor(_ => @filterModel.Type)</label>
+                <select class="control" name="Type" asp-items="Html.GetEnumSelectList<UnitType>()">
+                    <option>Select type</option>
+                </select>
+            </span>
+            <span class="filter-span">
+                <input type="submit" value="Filter" class="btn btn-primary" />
+            </span>
+        </div>
+    </form>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Health)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Speed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Value)
+            </th>
+            <th>
+                Value/HealthPt
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Health)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Speed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+            <td>
+                @{
+                  var division = (item.Value / item.Health);
+                 }
+                  <p>@division</p>
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
