@@ -4,7 +4,6 @@
 
 - **.NET Core**
 - **C#** 
-- **Szálkezelés (thread, async, Task, PLINQ)**
 - **WinForms**
 - **ADO.NET**
 - **Entity Framework**
